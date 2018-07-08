@@ -1,22 +1,31 @@
 using NUnit.Framework;
-// using HtmlAgilityPack;
-
-
+using HtmlAgilityPack;
 
 namespace ChangeMyLife.Tests.formTests
 {
     public class LoginFormTests
     {
-        [SetUp]
+        HtmlDocument loginForm;
+
+        [OneTimeSetUp]
         public void Setup()
         {
-            // Htmldocument loginForm = Htmldocument.DocumentNode
+            loginForm = new HtmlDocument();
+            loginForm.Load("../../../../ChangeMyLife/Views/loginForm.cshtml");            
         }
 
         [Test]
-        public void Test1()
+        public void testLoginFormLoadsWithCorrectTextboxesAndLabels()
         {
-            Assert.Pass();
+            HtmlNode bodyNode = loginForm.DocumentNode.SelectSingleNode("body");
+            HtmlNode formNode = bodyNode.SelectSingleNode("form");
+            HtmlNode userNameDivNode = bodyNode.SelectNodes("div")[0];
+            HtmlNode passwordDivNode = bodyNode.SelectNodes("div")[1];
+
+            Assert.IsNotNull(bodyNode);
+            Assert.IsNotNull(formNode);
+            Assert.IsNotNull(userNameDivNode);
+            Assert.IsNotNull(passwordDivNode);
         }
     }
 }
